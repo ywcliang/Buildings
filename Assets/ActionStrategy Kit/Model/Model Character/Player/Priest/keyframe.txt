@@ -1,0 +1,6 @@
+idle 1-20
+walk 31-49
+atk 51-67
+dead 71-86
+cast 91-95
+heal 101-125
