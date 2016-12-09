@@ -9,7 +9,8 @@ namespace Building
 		{
 			m_SUnitName = "max";
 			m_SUnitType = UnitType.BUILDING_MAX;
-			LoadingResource ();
+			m_ECurrentLevel = BuildingLevel.BASE_GROUND;
+			InitWithSaveData ();
 		}
 
 		public override void onTouch ()

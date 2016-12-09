@@ -20,6 +20,11 @@ public class Main : MonoBehaviour {
 		
 	}
 
+	public Camera getMainCam()
+	{
+		return m_pCameraContainer.getMainCamera ();
+	}
+
 	public void SetCameraContainer(CameraContainer c)
 	{
 		m_pCameraContainer = c;

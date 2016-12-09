@@ -9,8 +9,9 @@ namespace Building
 		{
 			m_SUnitName = "d2";
 			m_SUnitType = UnitType.BUILDING_D2;
-			m_CAnimate = null;
-			LoadingResource ();
+			m_ECurrentLevel = BuildingLevel.BASE_GROUND;
+			m_CBuildingModel = null;
+			InitWithSaveData ();
 		}
 
 		public override void onTouch ()

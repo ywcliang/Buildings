@@ -2,31 +2,56 @@
 using System.Collections;
 using Unit;
 using G;
+using Building;
+
+public enum BuildingLevel
+{
+	BASE_GROUND,
+	LEVEL_FIRST,
+	LEVEL_SECOND,
+	LEVEL_TOP
+}
 
 namespace Building
 {
 	public class Building : UnitBase
 	{
-		protected GameObject m_CAnimate;
+		protected BuildingLevel m_ECurrentLevel;
+		protected GameObject m_CBuildingModel;
+		protected BuildingState m_CState;
 
 		public Transform getTransform ()
 		{
-			return m_CAnimate.transform;  
+			return m_CBuildingModel.transform;  
 		}
 
 		public void SetTransform (Transform value)
 		{
-			m_CAnimate.transform.position = value.transform.position;
-			m_CAnimate.transform.rotation = value.transform.rotation;
+			m_CBuildingModel.transform.position = value.transform.position;
+			m_CBuildingModel.transform.rotation = value.transform.rotation;
 		}
 
 		public Building ()
 		{
 			m_SUnitName = "buding";
 			m_SUnitType = UnitType.DEFAULT;
-			m_CAnimate = null;
-			LoadingResource ();
+			m_ECurrentLevel = BuildingLevel.BASE_GROUND;
+			m_CBuildingModel = null;
+			m_CState = new BuildingState ();
+
+			InitWithSaveData ();
 		}
+
+		public void setPhase(BuildingLevel phase)
+		{
+			m_ECurrentLevel = phase;	
+		}
+
+		public BuildingLevel setPhase()
+		{
+			return m_ECurrentLevel;
+		}
+
 
 		public override void onTouch ()
 		{
@@ -60,10 +85,21 @@ namespace Building
 
 			}
 			if (obj) {
-				m_CAnimate = Object.Instantiate(obj) as GameObject;
-				m_CAnimate.SetActive (true);
+				m_CBuildingModel = Object.Instantiate(obj) as GameObject;
+				m_CBuildingModel.SetActive (true);
+				m_CState.changeState (BuildingState.statePrebuild);
 			}
 				
+		}
+
+		public void InitWithSaveData()
+		{
+			LoadingResource ();
+		}
+
+		public void update()
+		{
+			m_CState.update ();
 		}
 	}
 }

@@ -76,6 +76,8 @@
      <Compile Include="Assets\Buildings\Script\Game\Unit\Building\BuildingD2.cs" />
      <Compile Include="Assets\Buildings\Script\Game\Unit\Building\BuildingIMAX.cs" />
      <Compile Include="Assets\Buildings\Script\Game\Unit\Building\BuildingManager.cs" />
+     <Compile Include="Assets\Buildings\Script\Game\Unit\Building\BuildingState.cs" />
+     <Compile Include="Assets\Buildings\Script\Game\Unit\State\UnitState.cs" />
      <Compile Include="Assets\Buildings\Script\Game\Unit\UnitBase.cs" />
      <Compile Include="Assets\Buildings\Script\GestureDelegate\GCamera.cs" />
      <Compile Include="Assets\Buildings\Script\Main\Ground.cs" />

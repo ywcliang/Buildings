@@ -2,6 +2,15 @@
 using G;
 using Building;
 
+public enum UnitType
+{
+	DEFAULT,
+	BUILDING_D2,
+	BUILDING_C2,
+	BUILDING_MAX,
+	CAR
+}
+
 namespace Unit
 {	
 	public class UnitBase : UnitBehaviour

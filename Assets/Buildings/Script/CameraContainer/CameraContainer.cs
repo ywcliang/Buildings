@@ -231,4 +231,10 @@ public class CameraContainer : MonoBehaviour {
 		}
 
 	}
+
+	//get current camera.
+	public Camera getMainCamera()
+	{
+		return m_CCurrentCam;	
+	}
 }

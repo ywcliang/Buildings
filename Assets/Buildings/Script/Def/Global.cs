@@ -1,16 +1,6 @@
 ﻿using UnityEngine;
 
 namespace G{
-
-	public enum UnitType
-	{
-		DEFAULT,
-		BUILDING_D2,
-		BUILDING_C2,
-		BUILDING_MAX,
-		CAR
-	}
-
 	public class GlobalDef {
 		public static int TOUCH_SINGLE = 1;
 		public static int TOUCH_MULTIPLE = 2;
