@@ -9,7 +9,7 @@ namespace G{
 		public static int TOUCH_FIRST = 0;
 		public static int TOUCH_SECOND = 1;
 
-		public static float CameraDragFactor = 0.15f;
+		public static float CameraDragFactor = 0.005f;
 		public static float MaxCameraDragDistance = 20.0f;
 
 		public static float CameraZoomFactor = 0.2f;

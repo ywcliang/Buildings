@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using G;
+using Building;
 
 public class Main : MonoBehaviour {
 	public static Main Instance = null;
@@ -62,12 +63,11 @@ public class Main : MonoBehaviour {
 //			m_pControled.Init (ref m_pMainCame);
 		//Main.getMainIns();
 	}
-	
+	static int go = 0;
 	// Update is called once per frame
 	void Update () {
 //		if (m_pControled != null)
 //			m_pControled.Update ();
-
 	}
 
 	public void ResetCamera()
@@ -76,5 +76,25 @@ public class Main : MonoBehaviour {
 			m_pCameraContainer.ResetCame ();
 		}
 	}
+
+	void OnDestroy(){
 		
+	}
+
+	public void ExitGame()
+	{
+		
+		#if UNITY_IOS
+			// ios platform ---> Apple Technical Page qa1561 
+
+			BuildingManager.RevmoveAllBuilding ();
+			Application.Quit ();
+		#endif
+
+		#if UNITY_ANDROID
+			BuildingManager.RevmoveAllBuilding ();
+			Application.Quit ();
+		#endif
+	}
+
 }

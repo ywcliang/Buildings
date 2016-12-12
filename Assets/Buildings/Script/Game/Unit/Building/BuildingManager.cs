@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using G;
 using UnityEngine;
-using UnityEditor;
 
 namespace Building
 {
@@ -15,7 +14,6 @@ namespace Building
 			for (int i = 0; i < Pos.Count; ++i)
 			{
 				if (Pos [i] != null) {
-					PrefabType pre = PrefabUtility.GetPrefabType (Pos[i]);
 					Transform t = Pos [i].transform;
 					if (Pos [i].gameObject.tag == "BuildingMax") {
 						LoadBuildingByType (UnitType.BUILDING_MAX, ref t);
@@ -28,14 +26,23 @@ namespace Building
 					{
 						LoadBuildingByType (UnitType.BUILDING_D2, ref t);
 					}
+					else if (Pos [i].gameObject.tag == "BuildingBase")
+					{
+						LoadBuildingByType (UnitType.BUILDING_BASE, ref t);
+					}
 					else
 					{
 						int r = Random.Range (0, 10);
 						if (r >= 0 && r < 3) {
 							LoadBuildingByType (UnitType.BUILDING_D2, ref t);
-						} else if (r >= 3 && r < 7) {
+						} else if (r >= 3 && r < 5) {
 							LoadBuildingByType (UnitType.BUILDING_C2, ref t);
-						} else {
+						}
+						else if (r >= 5 && r < 7)
+						{
+							LoadBuildingByType (UnitType.BUILDING_BASE, ref t);
+						}
+						else {
 							LoadBuildingByType (UnitType.BUILDING_MAX, ref t);
 						}
 					}
@@ -48,6 +55,7 @@ namespace Building
 			Building b = (Building)Building.CreateUnit (type);
 			if (b != null) {
 				b.SetTransform (t);
+				b.InitWithSaveData ();
 				s_BuildingList.Add (b);
 			}
 		}
@@ -55,7 +63,29 @@ namespace Building
 		public static void RemoveBuilding(ref Building building)
 		{
 			if (s_BuildingList.Count != 0) {
+				building.DestorySelf ();
 				s_BuildingList.Remove (building);
+			}
+		}
+
+		public static void RevmoveAllBuilding()
+		{
+			if (s_BuildingList.Count != 0) {
+				for (int i = 0; i < s_BuildingList.Count; ++i)
+				{
+					s_BuildingList [i].DestorySelf ();
+				}
+				s_BuildingList.Clear ();
+			}	
+		}
+
+		public static void Update()
+		{
+			if (s_BuildingList.Count != 0) {
+				for (int i = 0; i < s_BuildingList.Count; ++i)
+				{
+					s_BuildingList [i].update ();
+				}
 			}
 		}
 	}

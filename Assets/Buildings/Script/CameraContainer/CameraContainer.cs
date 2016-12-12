@@ -46,65 +46,70 @@ public class CameraContainer : MonoBehaviour {
 
 	public void OnDrag(ref DragGesture e)
 	{
-		//drag in z axi at vertical,so set y value to z
-		Vector3 v = new Vector3 (e.DeltaMove.x, 0, e.DeltaMove.y);
+		if (e.DeltaMove == Vector2.zero)
+			return;
 
-		if (e.DeltaMove.magnitude > GlobalDef.MaxCameraDragDistance) {
-			transform.position -= v.normalized * GlobalDef.MaxCameraDragDistance * GlobalDef.CameraDragFactor;
-		} else {
-			transform.position -= v * GlobalDef.CameraDragFactor;
-		}
+		//drag in z axi at vertical,so set y value to z
+		Vector3 v = new Vector3 (e.DeltaMove.x,
+								0, 
+								e.DeltaMove.y);
+
+		Vector3 vRight = transform.right;
+		Vector3 vForward = transform.forward;
+		//exclude y axis move.
+		vRight.y = 0;
+		vForward.y = 0;
+
+		//if (e.DeltaMove.magnitude > GlobalDef.MaxCameraDragDistance) {
+			transform.position -= vRight* v.x * GlobalDef.MaxCameraDragDistance * GlobalDef.CameraDragFactor;
+			transform.position -= vForward * v.z * GlobalDef.MaxCameraDragDistance * GlobalDef.CameraDragFactor;
+//		} else {
+//			transform.position -= vRight * v.x * GlobalDef.CameraDragFactor;
+//			transform.position -= vForward * v.z * GlobalDef.CameraDragFactor;
+//		}
 
 		Vector3 checkV = transform.position;
+
+
+
 		//check limit range in min x
 		if (checkV.x < m_CSizeCamMoveMin.x) {
-			if (e.DeltaMove.x > 0) {
+			//if (e.DeltaMove.x > 0) {
 				checkV.x = m_CSizeCamMoveMin.x;
-			}
+			//}
 		}
 		//check limit range in min z
 		if (checkV.z < m_CSizeCamMoveMin.z) {
-			if (e.DeltaMove.y > 0) {
+			//if (e.DeltaMove.y > 0) {
 				checkV.z = m_CSizeCamMoveMin.z;
-			}
+			//}
 		}
 		//check limit range in max x
 		if (checkV.x > m_CSizeCamMoveMax.x) {
-			if (e.DeltaMove.x < 0) {
+			//if (e.DeltaMove.x < 0) {
 				checkV.x = m_CSizeCamMoveMax.x;
-			}
+			//}
 		}
 		//check limit range in max z
 		if (checkV.z > m_CSizeCamMoveMax.z) {
-			if (e.DeltaMove.y < 0) {
+			//if (e.DeltaMove.y < 0) {
 				checkV.z = m_CSizeCamMoveMax.z;
-			}
+			//}
 		}
-		string form = string.Format ("check limit range  min!!!  transform.position.x  {0} transform.position.x   {1}  ",e.DeltaMove.x, e.DeltaMove.y);
-		DebugConsole.Log (form, "normal");
+//		string form = string.Format ("transform.position.x  {0} transform.position.y   {1}  ",e.DeltaMove.x, e.DeltaMove.y);
+//
+//		DebugConsole.Log (form, "warning");
 		if (checkV != transform.position)
 			transform.position = checkV;
-
-		if (transform.position.x < m_CSizeCamMoveMin.x || transform.position.z < m_CSizeCamMoveMin.z)
-		{
-//			string form = string.Format ("check limit range  min!!!  transform.position.x  {0} transform.position.x   {1}  ",transform.position.x, transform.position.z);
-//			DebugConsole.Log (form, "normal");
-			transform.position = m_CSizeCamMoveMin;
-
-		}
-		if (transform.position.x > m_CSizeCamMoveMax.x || transform.position.z > m_CSizeCamMoveMax.z)
-		{
-//			string form = string.Format ("check limit range  max!!!  transform.position.x  {0} transform.position.x   {1}  ",transform.position.x, transform.position.z);
-//			DebugConsole.Log (form, "warning");
-			transform.position = m_CSizeCamMoveMax;
-		}
 
 		if (m_bCamTypeOrthographic) {
 		
 		} else {
 		
 		}
-		
+
+//		string forms = string.Format ("moved position.x  {0} moved .y   {1}  ",transform.position.x, transform.position.z);
+//		DebugConsole.Log (forms, "error");
 	}
 
 	public void OnDrag2(ref DragGesture e)
@@ -137,9 +142,6 @@ public class CameraContainer : MonoBehaviour {
 			}
 		}
 
-
-
-		DebugConsole.Log ("transform.eulerAngles.x   " + transform.eulerAngles.x, "normal");
 		if (m_bCamTypeOrthographic) {
 
 		} else {
@@ -149,8 +151,7 @@ public class CameraContainer : MonoBehaviour {
 
 	public void OnTwist(ref TwistGesture e)
 	{
-		
-		transform.rotation *= Quaternion.Euler (Vector3.up * e.DeltaRotation * GlobalDef.CameraRotateFactor);
+		transform.Rotate(Vector3.up * e.DeltaRotation * GlobalDef.CameraRotateFactor, Space.World);
 		//Vector3 center = Main.getMainIns().GetWorldCenterPosition();
 	
 
@@ -173,7 +174,6 @@ public class CameraContainer : MonoBehaviour {
 			if (m_CCurrentCam.orthographicSize < GlobalDef.MinOrtCameraOriginSize)
 				m_CCurrentCam.orthographicSize = GlobalDef.MinOrtCameraOriginSize;
 
-			DebugConsole.Log ("m_CCurrentCam.orthographicSize    " + m_CCurrentCam.orthographicSize, "normal");
 		} else {
 			m_CCurrentCam.fieldOfView -= e.Delta * GlobalDef.CameraZoomFactor;
 			//adjust fov between available value 
@@ -181,7 +181,6 @@ public class CameraContainer : MonoBehaviour {
 				m_CCurrentCam.fieldOfView = GlobalDef.MaxPersCameraFov;
 			if (m_CCurrentCam.fieldOfView < GlobalDef.MinPersCameraFov)
 				m_CCurrentCam.fieldOfView = GlobalDef.MinPersCameraFov;
-			DebugConsole.Log ("m_CCurrentCam.fieldOfView    " + m_CCurrentCam.fieldOfView, "normal");
 		}
 	}
 

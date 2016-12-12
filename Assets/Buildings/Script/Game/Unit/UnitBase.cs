@@ -5,6 +5,7 @@ using Building;
 public enum UnitType
 {
 	DEFAULT,
+	BUILDING_BASE,
 	BUILDING_D2,
 	BUILDING_C2,
 	BUILDING_MAX,
@@ -18,6 +19,10 @@ namespace Unit
 		public static UnitBase CreateUnit(UnitType type)
 		{
 			switch (type) {
+			case UnitType.BUILDING_BASE:
+				{
+					return new BuildingBase ();
+				}
 			case UnitType.BUILDING_C2:
 				{
 					return new BuildingC2 ();

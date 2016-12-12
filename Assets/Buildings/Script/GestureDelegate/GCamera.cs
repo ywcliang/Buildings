@@ -59,7 +59,7 @@ public class GCamera : MonoBehaviour {
 	}
 
 	//destory all gesture delegate
-	void Destory(){
+	void OnDestroy(){
 		DragRecognizer[] dragList = GetComponents<DragRecognizer>();
 		foreach (DragRecognizer drag in dragList) {
 			if (drag.RequiredFingerCount == GlobalDef.TOUCH_SINGLE) {
@@ -120,7 +120,7 @@ public class GCamera : MonoBehaviour {
 		}
 	}
 
-	//drag
+	//drag2
 	void OnDrag2 (DragGesture e)
 	{
 		if (m_bTouchFocus) {

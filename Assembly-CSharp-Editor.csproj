@@ -49,10 +49,11 @@
      <Compile Include="Assets\ActionStrategy Kit\Scripts\Gameplay\Editor\EnemyEditor.cs" />
      <Compile Include="Assets\ActionStrategy Kit\Scripts\Gameplay\Editor\SettingActionEditor.cs" />
      <None Include="Assets\ActionStrategy Kit\Standard Assets\Toon Shading\Sources\Shaders\Toony-Basic.shader" />
+     <None Include="Assets\ActionStrategy Kit\Model\Model Character\Player\Knight\keyframe.txt" />
      <None Include="Assets\Plugins\FingerGestures\Readme.txt" />
      <None Include="Assets\Buildings\_Shaders\CB_VertexLitDirOnly_LightMap.shader" />
      <None Include="Assets\ActionStrategy Kit\Standard Assets\Toon Shading\Sources\Shaders\Toony-BasicOutline.shader" />
-     <None Include="Assets\ActionStrategy Kit\Model\Model Character\Player\Knight\keyframe.txt" />
+     <None Include="Assets\Buildings\_Models\Knight\keyframe.txt" />
      <None Include="Assets\ActionStrategy Kit\Standard Assets\Toon Shading\Sources\Shaders\Toony-LightedOutline.shader" />
      <None Include="Assets\ActionStrategy Kit\Standard Assets\Toon Shading\Sources\Shaders\Toony-Lighted.shader" />
      <None Include="Assets\ActionStrategy Kit\Model\Model Character\Enemy\keyframe.txt" />

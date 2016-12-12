@@ -8,17 +8,27 @@ namespace Building
 	{
 		override public void onPreChangeState()
 		{
-
+			//set building levels
+			//loading config files from save data,licke world config
+			base.onPreChangeState();
 		}
 
-		override public void onStateChanged()
+		override public void onStateBeenChanged()
 		{
+			//release animations current state using
+			//stateCall.Invoke();
+			base.onStateBeenChanged();
+		}
 
+		override public void onStateChanging()
+		{
+			//loading animations and playing audios
+			base.onStateChanging();
 		}
 
 		override public void update()
 		{
-
+			
 		}
 	}
 
@@ -26,35 +36,52 @@ namespace Building
 	{
 		override public void onPreChangeState()
 		{
-
+			//set building levels
+			base.onPreChangeState();
 		}
 
-		override public void onStateChanged()
+		override public void onStateBeenChanged()
 		{
-
+			//release animations ?
+			base.onStateBeenChanged();
 		}
+
+		override public void onStateChanging()
+		{
+			//load next animations or change animation clips
+			base.onStateChanging();
+		}
+
 
 		override public void update()
 		{
-
+			//if state work is done then do something
 		}
 	}
 		
-	public class Growing : UnitState
+	public class Producing : UnitState
 	{
 		override public void onPreChangeState()
 		{
-
+			base.onPreChangeState();
 		}
 
-		override public void onStateChanged()
+		override public void onStateBeenChanged()
 		{
-
+			//invisible animation ?
+			base.onStateBeenChanged();
 		}
+
+		override public void onStateChanging()
+		{
+			//load or change animation clip
+			base.onStateChanging();
+		}
+
 
 		override public void update()
 		{
-
+			//produce coin or something
 		}
 	}
 
@@ -62,13 +89,20 @@ namespace Building
 	{
 		override public void onPreChangeState()
 		{
-
+			base.onPreChangeState();
 		}
 
-		override public void onStateChanged()
+		override public void onStateBeenChanged()
 		{
-
+			base.onStateBeenChanged();
 		}
+
+		override public void onStateChanging()
+		{
+			//release all things, anmations object, or gameobject from manager pool
+			base.onStateChanging();
+		}
+
 
 		override public void update()
 		{
@@ -78,13 +112,12 @@ namespace Building
 	
 	public class BuildingState
 	{
-		public static int statePrebuild = 0;
-		public static int constructing = 1;
-		public static int stateGrowing = 2;
-		public static int stateDestory = 3;
-		public static int stateCount = 4;
-
-		public delegate void BuildDelegate();
+		//all states list
+		public static int s_StatePrebuild = 0;
+		public static int s_StateConstruct = 1;
+		public static int s_StateProduce = 2;
+		public static int s_StateDestory = 3;
+		public static int s_StateCount = 4;
 
 		private Building m_CBuildInstance;
 
@@ -108,35 +141,80 @@ namespace Building
 
 		public BuildingState ()
 		{
-			m_States = new UnitState[stateCount];
-			m_States[statePrebuild] = new PreBuild ();
-			m_States[constructing] = new constructing ();
-			m_States[stateGrowing] = new Growing ();
-			m_States[stateDestory] = new Destory ();
+			m_States = new UnitState[s_StateCount];
+			m_States[s_StatePrebuild] = new PreBuild ();
+			m_States[s_StateConstruct] = new constructing ();
+			m_States[s_StateProduce] = new Producing ();
+			m_States[s_StateDestory] = new Destory ();
 
 			m_CCurrentState = null;
 		}
 
-		public void update()
+		public virtual void update()
 		{
 			if (m_CCurrentState != null)
 				m_CCurrentState.update ();
 		}
 
 		//change state
-		public void changeState(int state)
+		public virtual void changeState(int state)
 		{
 			if (m_CCurrentState == m_States[state])
 				return;
 
 
-			if (m_CCurrentState != null)
-				m_CCurrentState.onStateChanged ();
+			if (m_CCurrentState != null) {
+				m_CCurrentState.onStateBeenChanged ();
+
+			}
 			m_CCurrentState = m_States[state];
-			m_CCurrentState.onChangeState ();
+			m_CCurrentState.onStateChanging ();
 		}
 
 
+		//push delegates
+		public virtual void pushPreCallback(int stateIndex, UnitState.StateCallback call)
+		{
+			if (m_States [stateIndex] != null) {
+				m_States [stateIndex].onPreStateCall += call;
+			}
+		}
+
+		public virtual void pushChangingCallback(int stateIndex, UnitState.StateCallback call)
+		{
+			if (m_States [stateIndex] != null) {
+				m_States [stateIndex].ChangeingStateCall += call;
+			}
+		}
+
+		public virtual void pushBeenChangedCallback(int stateIndex, UnitState.StateCallback call)
+		{
+			if (m_States [stateIndex] != null) {
+				m_States [stateIndex].BeenChangedStateCall += call;
+			}
+		}
+
+		//pop delegates
+		public virtual void popPreCallback(int stateIndex, UnitState.StateCallback call)
+		{
+			if (m_States [stateIndex] != null) {
+				m_States [stateIndex].onPreStateCall -= call;
+			}
+		}
+
+		public virtual void popChangingCallback(int stateIndex, UnitState.StateCallback call)
+		{
+			if (m_States [stateIndex] != null) {
+				m_States [stateIndex].ChangeingStateCall -= call;
+			}
+		}
+
+		public virtual void popBeenChangedCallback(int stateIndex, UnitState.StateCallback call)
+		{
+			if (m_States [stateIndex] != null) {
+				m_States [stateIndex].BeenChangedStateCall -= call;
+			}
+		}
 	}
 }
 

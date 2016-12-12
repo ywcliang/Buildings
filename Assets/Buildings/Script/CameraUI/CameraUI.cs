@@ -17,4 +17,10 @@ public class CameraUI : MonoBehaviour {
 	{
 		Main.getMainIns ().ResetCamera ();
 	}
+
+
+	public void OnExitClick()
+	{
+		Main.getMainIns ().ExitGame ();
+	}
 }

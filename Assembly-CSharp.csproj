@@ -66,12 +66,14 @@
      <Compile Include="Assets\ActionStrategy Kit\Scripts\Gameplay\UI_Manager\UI_Manager.cs" />
      <Compile Include="Assets\ActionStrategy Kit\Scripts\Title\AlphaText.cs" />
      <Compile Include="Assets\ActionStrategy Kit\Scripts\Title\ControlScene.cs" />
+     <Compile Include="Assets\Buildings\Script\C#EventHandlerList\EventHandlerList.cs" />
      <Compile Include="Assets\Buildings\Script\CameraContainer\CameraContainer.cs" />
      <Compile Include="Assets\Buildings\Script\CameraUI\CameraUI.cs" />
      <Compile Include="Assets\Buildings\Script\DebugConsle\DebugLabel.cs" />
      <Compile Include="Assets\Buildings\Script\Def\Global.cs" />
      <Compile Include="Assets\Buildings\Script\Game\Interface\UnitBehaviour.cs" />
      <Compile Include="Assets\Buildings\Script\Game\Unit\Building\Building.cs" />
+     <Compile Include="Assets\Buildings\Script\Game\Unit\Building\BuildingBase.cs" />
      <Compile Include="Assets\Buildings\Script\Game\Unit\Building\BuildingC2.cs" />
      <Compile Include="Assets\Buildings\Script\Game\Unit\Building\BuildingD2.cs" />
      <Compile Include="Assets\Buildings\Script\Game\Unit\Building\BuildingIMAX.cs" />
@@ -84,10 +86,11 @@
      <Compile Include="Assets\Buildings\Script\Main\Main.cs" />
      <Compile Include="Assets\Scripts\Camera\TouchCamera.cs" />
      <None Include="Assets\ActionStrategy Kit\Standard Assets\Toon Shading\Sources\Shaders\Toony-Basic.shader" />
+     <None Include="Assets\ActionStrategy Kit\Model\Model Character\Player\Knight\keyframe.txt" />
      <None Include="Assets\Plugins\FingerGestures\Readme.txt" />
      <None Include="Assets\Buildings\_Shaders\CB_VertexLitDirOnly_LightMap.shader" />
      <None Include="Assets\ActionStrategy Kit\Standard Assets\Toon Shading\Sources\Shaders\Toony-BasicOutline.shader" />
-     <None Include="Assets\ActionStrategy Kit\Model\Model Character\Player\Knight\keyframe.txt" />
+     <None Include="Assets\Buildings\_Models\Knight\keyframe.txt" />
      <None Include="Assets\ActionStrategy Kit\Standard Assets\Toon Shading\Sources\Shaders\Toony-LightedOutline.shader" />
      <None Include="Assets\ActionStrategy Kit\Standard Assets\Toon Shading\Sources\Shaders\Toony-Lighted.shader" />
      <None Include="Assets\ActionStrategy Kit\Model\Model Character\Enemy\keyframe.txt" />
