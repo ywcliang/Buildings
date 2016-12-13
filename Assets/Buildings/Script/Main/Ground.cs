@@ -6,8 +6,6 @@ using Building;
 public class Ground : MonoBehaviour {
 
 	private Vector2 m_CGroundSize;
-	public List<GameObject> buildings;
-	 
 
 	void Awake()
 	{
@@ -22,8 +20,7 @@ public class Ground : MonoBehaviour {
 //		string strNeed = string.Format("{0}  {1}  {2}","ground size   x   " + center.x,"ground size  y" + center.y,"ground size  z" + center.z);
 //		DebugConsole.Log (strNeed, "normal" );
 
-		//spawn buildings 
-		BuildingManager.LoadBuildings(ref buildings);
+
 	}
 	
 	// Update is called once per frame

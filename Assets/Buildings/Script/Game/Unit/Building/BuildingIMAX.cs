@@ -10,12 +10,11 @@ namespace Building
 			m_SUnitName = "max";
 			m_SUnitType = UnitType.BUILDING_MAX;
 			m_ECurrentLevel = BuildingLevel.BASE_GROUND;
-			InitWithSaveData ();
 		}
 
-		public override void onTouch ()
+		public override void onTouch (ref TapGesture e)
 		{
-
+			base.onTouch (ref e);
 		}
 
 	}

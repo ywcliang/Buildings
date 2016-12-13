@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using G;
+using Unit;
 
 public class CameraContainer : MonoBehaviour {
 
@@ -42,6 +43,20 @@ public class CameraContainer : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 	
+	}
+
+	public void OnTap(ref TapGesture e)
+	{
+		if (e.Selection)
+		{
+			DebugConsole.Log ("touch obje    " + e.Selection);
+			if (e.Selection) {
+				UnitBase b = e.Selection.GetComponent<UnitBase> ();
+				if (b != null) {
+					b.onTouch (ref e);
+				}
+			}
+		}
 	}
 
 	public void OnDrag(ref DragGesture e)
@@ -209,11 +224,20 @@ public class CameraContainer : MonoBehaviour {
 		if (t != null) {
 			Transform t2 = t.GetChild (0);
 			Camera came = t2.gameObject.GetComponent<Camera> ();
-			if (came.gameObject.activeInHierarchy) 
+
+			#if UNITY_3_5
+			if(came.gameObject.active )
 			{
 				m_CCurrentCam = came;
 				m_bCamTypeOrthographic = false;
 			}
+			#else
+			if(came.gameObject.activeInHierarchy )
+			{
+				m_CCurrentCam = came;
+				m_bCamTypeOrthographic = false;
+			}
+			#endif
 		}
 
 
@@ -222,14 +246,23 @@ public class CameraContainer : MonoBehaviour {
 			Transform t2 = t.GetChild (0);
 
 			Camera came = t2.GetComponent<Camera>();
-			if (came.gameObject.activeInHierarchy) 
+
+			#if UNITY_3_5
+			if(came.gameObject.active)
 			{
 				m_CCurrentCam = came;
 				m_bCamTypeOrthographic = true;
 			}
+			#else
+			if(came.gameObject.activeInHierarchy )
+			{
+				m_CCurrentCam = came;
+				m_bCamTypeOrthographic = true;
+			}
+			#endif
 		}
-
 	}
+
 
 	//get current camera.
 	public Camera getMainCamera()

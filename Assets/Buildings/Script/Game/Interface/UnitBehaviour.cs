@@ -2,7 +2,7 @@
 
 public interface UnitBehaviour {
 	//when unit touched by screen.
-	void onTouch();
+	void onTouch(ref TapGesture e);
 
 //	//unit name
 //	string unitName { get;set;}

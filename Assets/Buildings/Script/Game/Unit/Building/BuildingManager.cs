@@ -9,53 +9,54 @@ namespace Building
 	{
 		public static List<Building> s_BuildingList = new List<Building>();
 
-		public static void LoadBuildings(ref List<GameObject> Pos)
-		{
-			for (int i = 0; i < Pos.Count; ++i)
-			{
-				if (Pos [i] != null) {
-					Transform t = Pos [i].transform;
-					if (Pos [i].gameObject.tag == "BuildingMax") {
-						LoadBuildingByType (UnitType.BUILDING_MAX, ref t);
-					}	
-					else if (Pos [i].gameObject.tag == "BuildingC2")
-					{
-						LoadBuildingByType (UnitType.BUILDING_C2, ref t);
-					}
-					else if (Pos [i].gameObject.tag == "BuildingD2")
-					{
-						LoadBuildingByType (UnitType.BUILDING_D2, ref t);
-					}
-					else if (Pos [i].gameObject.tag == "BuildingBase")
-					{
-						LoadBuildingByType (UnitType.BUILDING_BASE, ref t);
-					}
-					else
-					{
-						int r = Random.Range (0, 10);
-						if (r >= 0 && r < 3) {
-							LoadBuildingByType (UnitType.BUILDING_D2, ref t);
-						} else if (r >= 3 && r < 5) {
-							LoadBuildingByType (UnitType.BUILDING_C2, ref t);
-						}
-						else if (r >= 5 && r < 7)
-						{
-							LoadBuildingByType (UnitType.BUILDING_BASE, ref t);
-						}
-						else {
-							LoadBuildingByType (UnitType.BUILDING_MAX, ref t);
-						}
-					}
-				}
-			}
-		}
+//		public static IEnumerator LoadBuildings(List<GameObject> Pos)
+//		{
+//			for (int i = 0; i < Pos.Count; ++i)
+//			{
+//				if (Pos [i] != null) {
+//					Transform t = Pos [i].transform;
+//					if (Pos [i].gameObject.tag == "BuildingMax") {
+//						LoadBuildingByType (UnitType.BUILDING_MAX, ref t);
+//					}	
+//					else if (Pos [i].gameObject.tag == "BuildingC2")
+//					{
+//						LoadBuildingByType (UnitType.BUILDING_C2, ref t);
+//					}
+//					else if (Pos [i].gameObject.tag == "BuildingD2")
+//					{
+//						LoadBuildingByType (UnitType.BUILDING_D2, ref t);
+//					}
+//					else if (Pos [i].gameObject.tag == "BuildingBase")
+//					{
+//						LoadBuildingByType (UnitType.BUILDING_BASE, ref t);
+//					}
+//					else
+//					{
+//						int r = Random.Range (0, 10);
+//						if (r >= 0 && r < 3) {
+//							LoadBuildingByType (UnitType.BUILDING_D2, ref t);
+//						} else if (r >= 3 && r < 5) {
+//							LoadBuildingByType (UnitType.BUILDING_C2, ref t);
+//						}
+//						else if (r >= 5 && r < 7)
+//						{
+//							LoadBuildingByType (UnitType.BUILDING_BASE, ref t);
+//						}
+//						else {
+//							LoadBuildingByType (UnitType.BUILDING_MAX, ref t);
+//						}
+//					}
+//				}
+//
+//				yield return 0;
+//			}
+//		}
 
-		public static void LoadBuildingByType(UnitType type, ref Transform t)
+		public static void LoadBuildingByType(ref GameObject pre, UnitType type, ref Transform t)
 		{
-			Building b = (Building)Building.CreateUnit (type);
+			Building b = (Building)Building.CreateUnit (ref pre, type);
 			if (b != null) {
-				b.SetTransform (t);
-				b.InitWithSaveData ();
+				b.InitWithSaveData (ref t);
 				s_BuildingList.Add (b);
 			}
 		}
@@ -81,12 +82,7 @@ namespace Building
 
 		public static void Update()
 		{
-			if (s_BuildingList.Count != 0) {
-				for (int i = 0; i < s_BuildingList.Count; ++i)
-				{
-					s_BuildingList [i].update ();
-				}
-			}
+
 		}
 	}
 }

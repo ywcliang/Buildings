@@ -81,6 +81,7 @@
      <Compile Include="Assets\Buildings\Script\Game\Unit\Building\BuildingState.cs" />
      <Compile Include="Assets\Buildings\Script\Game\Unit\State\UnitState.cs" />
      <Compile Include="Assets\Buildings\Script\Game\Unit\UnitBase.cs" />
+     <Compile Include="Assets\Buildings\Script\Game\Unit\UnitManager.cs" />
      <Compile Include="Assets\Buildings\Script\GestureDelegate\GCamera.cs" />
      <Compile Include="Assets\Buildings\Script\Main\Ground.cs" />
      <Compile Include="Assets\Buildings\Script\Main\Main.cs" />

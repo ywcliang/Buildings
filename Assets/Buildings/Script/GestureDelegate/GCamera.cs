@@ -35,6 +35,10 @@ public class GCamera : MonoBehaviour {
 		if (pinch)
 			pinch.OnGesture += OnPinch;
 
+		TapRecognizer tap = GetComponent<TapRecognizer> ();
+		if (tap)
+			tap.OnGesture += OnTap;
+
 		FingerDownDetector fD = GetComponent<FingerDownDetector> ();
 		if (fD)
 			fD.OnFingerDown += OnFingerDown;
@@ -79,13 +83,19 @@ public class GCamera : MonoBehaviour {
 		if (pinch)
 			pinch.OnGesture -= OnPinch;
 
+		TapRecognizer tap = GetComponent<TapRecognizer> ();
+		if (tap)
+			tap.OnGesture -= OnTap;
+
 		FingerDownDetector fD = GetComponent<FingerDownDetector> ();
 		if (fD)
-			fD.OnFingerDown += OnFingerDown;
+			fD.OnFingerDown -= OnFingerDown;
 
 		FingerUpDetector fU = GetComponent<FingerUpDetector> ();
 		if (fU)
-			fU.OnFingerUp += OnFingerUp;
+			fU.OnFingerUp -= OnFingerUp;
+
+
 	}
 
 	//touch down, if touch blocked by ui then this event will not triggered
@@ -94,6 +104,7 @@ public class GCamera : MonoBehaviour {
 		//only receive first touch, others are ignore
 		if (eventData.Finger.Index == 0 && eventData.Finger.Phase == FingerGestures.FingerPhase.Begin) {
 			//if not touch ui item
+			EventSystem c = EventSystem.current;
 			if (!EventSystem.current.IsPointerOverGameObject ()) {
 				m_bTouchFocus = true;
 			}
@@ -106,6 +117,15 @@ public class GCamera : MonoBehaviour {
 		//only receive first touch, others are ignore
 		if (eventData.Finger.Index == 0) {
 			m_bTouchFocus = false;
+		}
+	}
+
+	//tap
+	void OnTap (TapGesture e)
+	{
+		if (m_CCamContainer != null)
+		{
+			m_CCamContainer.OnTap (ref e);
 		}
 	}
 

@@ -20,15 +20,23 @@ namespace Building
 		protected GameObject m_CBuildingModel;
 		protected BuildingState m_CState;
 
-		public Transform getTransform ()
+		protected override void generateBoxCollider ()
 		{
-			return m_CBuildingModel.transform;  
-		}
+			gameObject.AddComponent<BoxCollider> ();
 
-		public void SetTransform (Transform value)
-		{
-			m_CBuildingModel.transform.position = value.transform.position;
-			m_CBuildingModel.transform.rotation = value.transform.rotation;
+			BoxCollider bx = gameObject.GetComponent<BoxCollider> ();
+			BoxCollider bxModel = m_CBuildingModel.GetComponent<BoxCollider> ();
+			//find in children
+			if (bxModel == null)
+			{
+				bxModel = m_CBuildingModel.GetComponentInChildren<BoxCollider> ();
+			}
+
+			bx.center = bxModel.center;
+			bx.size = bxModel.size;
+			bx.transform.position = bxModel.transform.position;
+			bx.transform.rotation = bxModel.transform.rotation;
+			Destroy (bxModel);
 		}
 
 		public Building ()
@@ -61,9 +69,9 @@ namespace Building
 		}
 
 
-		public override void onTouch ()
+		public override void onTouch (ref TapGesture e)
 		{
-
+			DebugConsole.Log ("building  ontouch  " + m_SUnitName);
 		}
 
 		protected virtual void LoadingResource ()
@@ -72,22 +80,22 @@ namespace Building
 			switch (m_SUnitType) {
 			case UnitType.BUILDING_BASE:
 				{
-					obj = (GameObject)Resources.Load ("Prefabs/War");
+					obj = (GameObject)Resources.Load ("Prefabs/Unit/War");
 					break;
 				}
 			case UnitType.BUILDING_C2:
 				{
-					obj = (GameObject)Resources.Load ("Prefabs/buildingC2");
+					obj = (GameObject)Resources.Load ("Prefabs/Unit/buildingC2");
 					break;
 				}
 			case UnitType.BUILDING_D2:
 				{
-					obj = (GameObject)Resources.Load ("Prefabs/buildingD2");
+					obj = (GameObject)Resources.Load ("Prefabs/Unit/buildingD2");
 					break;
 				}
 			case UnitType.BUILDING_MAX:
 				{
-					obj = (GameObject)Resources.Load ("Prefabs/IMAX");
+					obj = (GameObject)Resources.Load ("Prefabs/Unit/IMAX");
 					break;
 				}
 			case UnitType.DEFAULT:
@@ -101,21 +109,32 @@ namespace Building
 			if (obj) {
 				m_CBuildingModel = Object.Instantiate(obj) as GameObject;
 				m_CBuildingModel.SetActive (true);
+				m_CBuildingModel.transform.rotation = transform.rotation;
+				m_CBuildingModel.transform.position = transform.position;
 
+				generateBoxCollider ();
 			}
 				
 		}
 
-		public virtual void InitWithSaveData()
+		public virtual void InitWithSaveData(ref Transform t)
 		{
 			//init state info
+			transform.position = t.position;
+			transform.rotation = t.rotation;
 			m_CState.setBuildInstance (this);
 			m_CState.changeState (BuildingState.s_StatePrebuild);
 		}
 
-		public virtual void update()
+		void Start()
+		{
+			
+		}
+
+		void Update()
 		{
 			m_CState.update ();
+
 		}
 
 		public virtual void DestorySelf()

@@ -12,12 +12,11 @@ namespace Building
 			m_SUnitType = UnitType.BUILDING_BASE;
 			m_ECurrentLevel = BuildingLevel.BASE_GROUND;
 			m_CBuildingModel = null;
-			InitWithSaveData ();
 		}
 
-		public override void onTouch ()
+		public override void onTouch (ref TapGesture e)
 		{
-
+			base.onTouch (ref e);
 		}
 	}
 }

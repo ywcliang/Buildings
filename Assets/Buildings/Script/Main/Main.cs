@@ -63,11 +63,36 @@ public class Main : MonoBehaviour {
 //			m_pControled.Init (ref m_pMainCame);
 		//Main.getMainIns();
 	}
-	static int go = 0;
+
 	// Update is called once per frame
 	void Update () {
 //		if (m_pControled != null)
 //			m_pControled.Update ();
+
+
+	}
+
+	public IEnumerator CutDown()
+	{
+		for (int i = 0; i < 5; ++i)
+		{
+			DebugConsole.Log ("CutDown   start " + i);
+			yield return StartCoroutine (Wait(2));
+			DebugConsole.Log ("CutDown   end " + i);
+		}
+
+	}
+
+	public IEnumerator Wait(float duration)
+	{
+		float i = 0;
+		while (i < 5)
+		{
+			i += Time.deltaTime;
+			DebugConsole.Log ("Waiting " + i);
+			yield return 0;
+		}
+
 	}
 
 	public void ResetCamera()
