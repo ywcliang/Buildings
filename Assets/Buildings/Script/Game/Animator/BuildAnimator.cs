@@ -47,7 +47,7 @@ public class BuildAnimator : MonoBehaviour {
 			return;
 		//after load resource we should decide to change state to new construct build or directly build, player's building built before will change the build level.
 		m_CAnimator.SetBool (GlobalDef.s_GBuildAnimator_PreLoadDone_Var, true);
-		m_CAnimator.SetInteger(GlobalDef.s_GBuildAnimator_BuildLevel_Var, (int)m_CBuildInstance.getLevelPhase ());
+		m_CAnimator.SetInteger(GlobalDef.s_GBuildAnimator_BuildLevel_Var, (int)m_CBuildInstance.m_ECurrentLevel);
 	}
 
 	//play construct animation
@@ -72,7 +72,7 @@ public class BuildAnimator : MonoBehaviour {
 	{
 		if (m_CAnimator == null)
 			return;
-		m_CAnimator.SetTrigger (GlobalDef.s_GBuildAnimator_Destory_Var);
+		m_CAnimator.SetBool (GlobalDef.s_GBuildAnimator_Destory_Var, true);
 	}
 
 	// OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
@@ -98,7 +98,7 @@ public class BuildAnimator : MonoBehaviour {
 	{
 		m_CAnimator.SetInteger (GlobalDef.s_GBuildAnimator_BuildLevel_Var, 0);
 		m_CAnimator.SetBool (GlobalDef.s_GBuildAnimator_Construct_Var, false);
-		m_CAnimator.SetTrigger (GlobalDef.s_GBuildAnimator_Destory_Var);
+		m_CAnimator.SetBool (GlobalDef.s_GBuildAnimator_Destory_Var, false);
 		m_CAnimator.SetBool (GlobalDef.s_GBuildAnimator_PreLoadDone_Var, false);
 	}
 }

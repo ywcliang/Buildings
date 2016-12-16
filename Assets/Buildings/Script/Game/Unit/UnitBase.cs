@@ -3,6 +3,9 @@ using G;
 using Buildings;
 using UnityEngine;
 
+namespace Unit
+{
+	
 public enum UnitType
 {
 	DEFAULT,
@@ -50,7 +53,7 @@ public enum CoinUnit
 	Y,
 	Z
 }
-	
+
 public struct CoinBundle
 {
 	//coin produce (show in ui)
@@ -96,6 +99,8 @@ public struct CoinBundle
 			int j = 1;
 			while (values >= Unit.UnitBase.s_UnitPower)
 			{
+					if ((i + j) > (int)CoinUnit.Z)
+					break;
 				float d = b.m_AFTotal [i] - Unit.UnitBase.s_UnitPower;
 				b.m_AFTotal [i] = d;
 				b.m_AFTotal [i + j] += 1;
@@ -158,6 +163,7 @@ public struct CoinBundle
 				b.m_AFTotal [i] = 0;
 				b.m_AFTotal [i + j] -= 1 + d;
 				values = b.m_AFTotal [i + j];
+				++j;
 			}
 		}
 
@@ -186,7 +192,7 @@ public struct CoinBundle
 		} else {
 			s = m_ECurrentUnit.ToString();
 		}
-		s = string.Format ("{0} " + s, m_FCoinProduce);
+		s = string.Format ("{0:##.000} " + s, m_FCoinProduce);
 		return s;
 	}
 
@@ -198,6 +204,80 @@ public struct CoinBundle
 	public static CoinBundle operator -(CoinBundle re, CoinBundle des)
 	{
 		return CalculateSub (ref re, ref des);
+	}
+
+	public static CoinBundle operator *(CoinBundle re, float factor)
+	{
+		CoinBundle b = new CoinBundle(re);
+
+		if (factor == 0) {
+			return b;
+		}
+
+			if (factor >= 1) {
+				
+				CoinUnit biggest = b.m_ECurrentUnit;
+				float biggestCoin = b.m_FCoinProduce;
+				for (int i = 0; i <= (int)CoinUnit.Z; ++i) {
+					b.m_AFTotal [i] *= factor;
+
+					float values = b.m_AFTotal [i];
+					int j = 1;
+					while (values >= Unit.UnitBase.s_UnitPower) {
+						float d = values / Unit.UnitBase.s_UnitPower;
+						//remain value
+						b.m_AFTotal [i] = values - d * Unit.UnitBase.s_UnitPower;
+						b.m_AFTotal [i + j] += d;
+						values = b.m_AFTotal [i + j];
+						++j;
+					}
+					if (biggest < (CoinUnit)i && b.m_AFTotal [i] > 0) {
+						biggest = (CoinUnit)i;
+						biggestCoin = b.m_AFTotal [i];
+					}
+				}
+
+				b.m_ECurrentUnit = biggest;
+				b.m_FCoinProduce = biggestCoin;
+
+			} else {
+				
+				CoinUnit biggest = b.m_ECurrentUnit;
+				float biggestCoin = b.m_FCoinProduce;
+				for (int i = (int)CoinUnit.Z; i >= 0; --i) {
+					b.m_AFTotal [i] *= factor;
+
+					bool down = false;
+					float values = b.m_AFTotal [i];
+					int j = -1;
+					while (values < 1.0f / Unit.UnitBase.s_UnitPower && values > 0) {
+						if (i + j < 0)
+							break;
+						float d = values * Unit.UnitBase.s_UnitPower;
+						//remain value
+						b.m_AFTotal [i] = 0;
+						b.m_AFTotal [i + j] += d;
+						values = b.m_AFTotal [i + j];
+						--j;
+						down = true;
+					}
+					if (down) {
+						biggest--;
+						biggestCoin = b.m_AFTotal [i];
+					}
+				}
+
+				b.m_ECurrentUnit = biggest;
+				b.m_FCoinProduce = biggestCoin;
+
+			}
+		
+		return b;
+	}
+
+	public static CoinBundle operator /(CoinBundle re, float factor)
+	{
+		return re * (1.0f / factor);
 	}
 
 	public static bool operator >(CoinBundle re, CoinBundle des)
@@ -244,9 +324,15 @@ public struct CoinBundle
 		return condition1 || condition2 || condition3;
 	}
 }
+		
+	public enum UnitLevel
+	{
+		LEVEL_ZERO,
+		LEVEL_FIRST,
+		LEVEL_SECOND,
+		LEVEL_TOP
+	}
 
-namespace Unit
-{	
 	public class UnitBase : MonoBehaviour, UnitBehaviour
 	{
 		public static UnitBase CreateUnit(UnitType type, ref Transform t)
@@ -296,6 +382,8 @@ namespace Unit
 			//bases.StartCoroutine (bases.m_CAnimatorController.InitAnimator());
 			return bases;
 		}
+
+		public static int[] s_UnitBase_Coin_level_Factor = new int[4] {0,1,2,3};
 
 		public static float frameRate = 1f/60f;
 
@@ -353,6 +441,8 @@ namespace Unit
 
 		public BuildAnimator m_CAnimatorController { get;set;}
 
+		public UnitLevel m_ECurrentLevel { get; set;}
+
 		//make a 3d box collider for Unit,generally get from model if we have, or make a empty one
 		virtual protected void generateBoxCollider(){
 			m_CBoxCollider = new BoxCollider ();
@@ -377,8 +467,8 @@ namespace Unit
 
 			} else {
 				if (m_ECoinProduceType == CoinProduceType.AUTO) {
-					m_CProducedCoin = m_CProducedCoin + m_CProduceRate;
-					s_TotalCoin = s_TotalCoin + m_CProducedCoin;
+					m_CProducedCoin = m_CProducedCoin + m_CProduceRate * s_UnitBase_Coin_level_Factor[(int)m_ECurrentLevel];
+					s_TotalCoin = s_TotalCoin + m_CProduceRate;
 				}
 			}
 		}
@@ -389,7 +479,7 @@ namespace Unit
 			} else {
 				if (m_ECoinProduceType == CoinProduceType.TOUCH) {
 					m_CProducedCoin = m_CProduceRate;
-					s_TotalCoin = s_TotalCoin + m_CProducedCoin;
+					s_TotalCoin = s_TotalCoin + m_CProduceRate;
 				}
 			}
 		}

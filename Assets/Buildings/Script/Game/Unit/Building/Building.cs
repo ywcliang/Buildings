@@ -4,19 +4,10 @@ using Unit;
 using G;
 using Buildings;
 
-public enum BuildingLevel
-{
-	BASE_GROUND,
-	LEVEL_FIRST,
-	LEVEL_SECOND,
-	LEVEL_TOP
-}
-
 namespace Buildings
 {
 	public class Building : UnitBase
 	{
-		protected BuildingLevel m_ECurrentLevel;
 		protected BuildingState m_CState;
 
 
@@ -43,7 +34,7 @@ namespace Buildings
 		{
 			m_SUnitName = "buding";
 			m_SUnitType = UnitType.DEFAULT;
-			m_ECurrentLevel = BuildingLevel.LEVEL_FIRST;
+			m_ECurrentLevel = UnitLevel.LEVEL_ZERO;
 			m_CModel = null;
 			m_CState = new BuildingState ();
 
@@ -57,17 +48,6 @@ namespace Buildings
 			unInitCallbacks ();
 			m_CState = null;
 		}
-
-		public void setLevelPhase(BuildingLevel phase)
-		{
-			m_ECurrentLevel = phase;	
-		}
-
-		public BuildingLevel getLevelPhase()
-		{
-			return m_ECurrentLevel;
-		}
-
 
 		public override void onTouch (ref TapGesture e)
 		{
@@ -224,11 +204,7 @@ namespace Buildings
 
 		public virtual void PreStateOnChanging()
 		{
-			//state controled by BuildBehaviour,so first time load model automaticly.
-			if (m_CModel == null) {
-				if (m_CAnimatorController != null)
-					m_CAnimatorController.PreloadOver ();
-			}
+			m_CAnimatorController.PreloadOver ();
 		}
 
 		public virtual void PreStateOnChanged()
@@ -341,7 +317,7 @@ namespace Buildings
 				int dd = 123;
 			}
 			else if (stateInfo.IsName (G.GlobalDef.s_GBuildAnimator_Destory_Doing)){
-				int dd = 123;
+				BuildingManager.RemoveBuilding (this);
 			}
 		}
 

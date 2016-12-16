@@ -9,7 +9,7 @@ namespace Buildings
 		{
 			m_SUnitName = "buildingD2";
 			m_SUnitType = UnitType.BUILDING_D2;
-			m_ECurrentLevel = BuildingLevel.LEVEL_FIRST;
+			m_ECurrentLevel = UnitLevel.LEVEL_FIRST;
 			m_CModel = null;
 			m_CProduceRate = s_ProduceRate [1];
 		}
