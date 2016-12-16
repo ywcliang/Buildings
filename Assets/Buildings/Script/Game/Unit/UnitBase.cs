@@ -178,6 +178,18 @@ public struct CoinBundle
 		return b;
 	}
 
+	public override string ToString ()
+	{
+		string s = "";
+		if (m_ECurrentUnit == CoinUnit.NULL) {
+		
+		} else {
+			s = m_ECurrentUnit.ToString();
+		}
+		s = string.Format ("{0} " + s, m_FCoinProduce);
+		return s;
+	}
+
 	public static CoinBundle operator +(CoinBundle re, CoinBundle des)
 	{
 		return CalculateAdd (ref re, ref des);
@@ -237,7 +249,7 @@ namespace Unit
 {	
 	public class UnitBase : MonoBehaviour, UnitBehaviour
 	{
-		public static UnitBase CreateUnit(UnitType type)
+		public static UnitBase CreateUnit(UnitType type, ref Transform t)
 		{
 			GameObject buildPre = Instantiate(UnitManager.s_UnitMgr_BuildPrefab) as GameObject;
 
@@ -279,10 +291,9 @@ namespace Unit
 
 			bases = buildPre.GetComponent<UnitBase> ();
 			bases.m_SUnitType = type;
-			bases.m_CAnimatorController = buildPre.GetComponent<BuildAnimator> ();
-			bases.m_CAnimatorController.m_CBuildInstance = (Building)bases;
+			bases.LoadingResource (ref t);
 
-			bases.StartCoroutine (bases.m_CAnimatorController.InitAnimator());
+			//bases.StartCoroutine (bases.m_CAnimatorController.InitAnimator());
 			return bases;
 		}
 
@@ -347,7 +358,9 @@ namespace Unit
 			m_CBoxCollider = new BoxCollider ();
 		}
 
-		virtual public BoxCollider getBoxCollider()
+		public virtual void LoadingResource (ref Transform t) {}
+
+		public virtual BoxCollider getBoxCollider()
 		{
 			return m_CBoxCollider;
 		}
@@ -375,7 +388,7 @@ namespace Unit
 
 			} else {
 				if (m_ECoinProduceType == CoinProduceType.TOUCH) {
-					m_CProducedCoin = m_CProducedCoin + m_CProduceRate;
+					m_CProducedCoin = m_CProduceRate;
 					s_TotalCoin = s_TotalCoin + m_CProducedCoin;
 				}
 			}

@@ -19,7 +19,7 @@ namespace Buildings
 			base.onTouch (ref e);
 			produceCoinTouch ();
 
-			m_CAnimatorController.StartConstruct ((int)m_ECurrentLevel);
+			//m_CAnimatorController.StartConstruct ((int)m_ECurrentLevel);
 		}
 
 		public override void produceUpdate ()

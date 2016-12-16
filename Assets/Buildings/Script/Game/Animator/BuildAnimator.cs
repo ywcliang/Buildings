@@ -4,29 +4,32 @@ using Buildings;
 using G;
 
 public class BuildAnimator : MonoBehaviour {
-	private Animator m_CAnimator = null;
-	private BuildBehaviour m_CbuildBehaviour = null;
+	public Animator m_CAnimator{ set; get;}
+//	private BuildBehaviour m_CbuildBehaviour = null;
 
 	public Building m_CBuildInstance{ set; get;}
 
 
 	// Use this for initialization
 	void Start () {
-		//StartCoroutine (InitAnimator());
-		ResetVar();
+		StartCoroutine (InitAnimator());
 	}
 
 	public IEnumerator InitAnimator()
 	{
-		while (m_CbuildBehaviour == null)
+		while (m_CAnimator == null)
 		{
-			m_CAnimator = gameObject.GetComponent<Animator> ();
+			if (m_CBuildInstance != null)
+			{
+				m_CAnimator = m_CBuildInstance.getModel().GetComponent<Animator> ();
 
-			if (m_CAnimator != null) {
-				BuildBehaviour tt = m_CAnimator.GetBehaviour<BuildBehaviour> ();
-				if (tt != null) {
-					m_CbuildBehaviour = tt;
-					m_CbuildBehaviour.m_Animator = this;
+				if (m_CAnimator != null) {
+					ResetVar();
+					//				BuildBehaviour tt = m_CAnimator.GetBehaviour<BuildBehaviour> ();
+					//				if (tt != null) {
+					//					m_CbuildBehaviour = tt;
+					//					m_CbuildBehaviour.m_Animator = this;
+					//				}
 				}
 			}
 			yield return 0;

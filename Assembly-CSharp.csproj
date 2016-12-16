@@ -53,6 +53,7 @@
      <Compile Include="Assets\Buildings\Script\Def\Global.cs" />
      <Compile Include="Assets\Buildings\Script\Game\Animator\BuildAnimator.cs" />
      <Compile Include="Assets\Buildings\Script\Game\Interface\UnitBehaviour.cs" />
+     <Compile Include="Assets\Buildings\Script\Game\UI\MainUILayer.cs" />
      <Compile Include="Assets\Buildings\Script\Game\Unit\Building\Building.cs" />
      <Compile Include="Assets\Buildings\Script\Game\Unit\Building\BuildingBase.cs" />
      <Compile Include="Assets\Buildings\Script\Game\Unit\Building\BuildingC2.cs" />

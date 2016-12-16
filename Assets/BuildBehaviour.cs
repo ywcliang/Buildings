@@ -4,9 +4,10 @@ using Buildings;
 using G;
 
 public class BuildBehaviour : StateMachineBehaviour {
-	public BuildAnimator m_Animator{ set; get;}
+	
 	 // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
 	override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
+		BuildAnimator m_Animator = animator.GetComponentInParent<BuildAnimator> ();
 		if (m_Animator)
 		{
 			m_Animator.OnStateEnter (ref animator,ref stateInfo,ref layerIndex);
@@ -14,20 +15,16 @@ public class BuildBehaviour : StateMachineBehaviour {
 	}
 
 	// OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
-	override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
-		if (m_Animator)
-		{
-			int d = 33;
-			bool ddd = stateInfo.IsName (G.GlobalDef.s_GBuildAnimator_Prebuild_Doing);
-			if (ddd){
-				float dds = 33;
-					
-			}
-		}
-	}
+//	override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
+//		BuildAnimator m_Animator = animator.GetComponentInParent<BuildAnimator> ();
+//		if (m_Animator)
+//		{
+//		}
+//	}
 
 	 //OnStateExit is called when a transition ends and the state machine finishes evaluating this state
 	override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
+		BuildAnimator m_Animator = animator.GetComponentInParent<BuildAnimator> ();
 		if (m_Animator)
 		{
 			m_Animator.OnStateExit (ref animator,ref stateInfo, ref layerIndex);

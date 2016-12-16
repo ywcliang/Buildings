@@ -54,9 +54,9 @@ namespace Buildings
 
 		public static void LoadBuildingByType(UnitType type, Transform t)
 		{
-			Building b = (Building)Building.CreateUnit (type);
+			Building b = (Building)Building.CreateUnit (type, ref t);
 			if (b != null) {
-				b.InitWithSaveData (ref t);
+				b.InitWithSaveData ();
 				s_BuildingList.Add (b);
 			}
 		}

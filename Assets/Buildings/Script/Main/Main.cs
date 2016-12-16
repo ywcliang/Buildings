@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using G;
+using Unit;
 using Buildings;
 
 public class Main : MonoBehaviour {
@@ -107,7 +108,6 @@ public class Main : MonoBehaviour {
 	}
 
 	void OnDestroy(){
-		
 	}
 
 	public void ExitGame()

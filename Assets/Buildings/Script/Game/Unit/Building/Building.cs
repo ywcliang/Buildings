@@ -74,7 +74,7 @@ namespace Buildings
 			//DebugConsole.Log ("building  ontouch  " + m_SUnitName);
 		}
 
-		protected virtual void LoadingResource ()
+		override public void LoadingResource (ref Transform t)
 		{
 			GameObject obj = null;
 			switch (m_SUnitType) {
@@ -109,19 +109,22 @@ namespace Buildings
 			if (obj) {
 				m_CModel = Object.Instantiate(obj) as GameObject;
 				m_CModel.SetActive (true);
-				m_CModel.transform.rotation = transform.rotation;
-				m_CModel.transform.position = transform.position;
+				//set transform
+				transform.position = m_CModel.transform.position = t.position;
+				transform.rotation = m_CModel.transform.rotation = t.rotation;
 
+				//bind build animator
+				m_CModel.AddComponent<BuildAnimator> ();
+				m_CAnimatorController = m_CModel.GetComponent<BuildAnimator> ();
+				m_CAnimatorController.m_CBuildInstance = this;
+				//create box collider from model
 				generateBoxCollider ();
 			}
 				
 		}
 
-		public virtual void InitWithSaveData(ref Transform t)
+		public virtual void InitWithSaveData()
 		{
-			//init state info
-			transform.position = t.position;
-			transform.rotation = t.rotation;
 			m_CState.setBuildInstance (this);
 		}
 
@@ -223,7 +226,6 @@ namespace Buildings
 		{
 			//state controled by BuildBehaviour,so first time load model automaticly.
 			if (m_CModel == null) {
-				LoadingResource ();
 				if (m_CAnimatorController != null)
 					m_CAnimatorController.PreloadOver ();
 			}
