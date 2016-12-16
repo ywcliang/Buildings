@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using G;
 using UnityEngine;
 
-namespace Building
+namespace Buildings
 {
 	public class BuildingManager
 	{
@@ -52,20 +52,21 @@ namespace Building
 //			}
 //		}
 
-		public static void LoadBuildingByType(ref GameObject pre, UnitType type, ref Transform t)
+		public static void LoadBuildingByType(UnitType type, Transform t)
 		{
-			Building b = (Building)Building.CreateUnit (ref pre, type);
+			Building b = (Building)Building.CreateUnit (type);
 			if (b != null) {
 				b.InitWithSaveData (ref t);
 				s_BuildingList.Add (b);
 			}
 		}
 
-		public static void RemoveBuilding(ref Building building)
+		public static void RemoveBuilding(Building building)
 		{
 			if (s_BuildingList.Count != 0) {
-				building.DestorySelf ();
-				s_BuildingList.Remove (building);
+				//building.DestorySelf ();
+				UnitManager.instance.RemoveUnit (building);
+
 			}
 		}
 
@@ -74,7 +75,9 @@ namespace Building
 			if (s_BuildingList.Count != 0) {
 				for (int i = 0; i < s_BuildingList.Count; ++i)
 				{
-					s_BuildingList [i].DestorySelf ();
+					//s_BuildingList [i].DestorySelf ();
+
+					UnitManager.instance.RemoveUnit(s_BuildingList [i]);
 				}
 				s_BuildingList.Clear ();
 			}	

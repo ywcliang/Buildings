@@ -2,16 +2,17 @@
 using UnityEngine;
 using G;
 
-namespace Building
+namespace Buildings
 {
 	public class BuildingC2 : Building {
 
 		public BuildingC2()
 		{
-			m_SUnitName = "c2";
+			m_SUnitName = "HouseA_Prefab";
 			m_SUnitType = UnitType.BUILDING_C2;
-			m_ECurrentLevel = BuildingLevel.BASE_GROUND;
-			m_CBuildingModel = null;
+			m_ECurrentLevel = BuildingLevel.LEVEL_FIRST;
+			m_CModel = null;
+			m_CProduceRate = s_ProduceRate [1];
 		}
 
 		public override void onTouch (ref TapGesture e)

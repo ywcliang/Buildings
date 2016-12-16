@@ -4,7 +4,7 @@ using G;
 using Unit;
 
 public class CameraContainer : MonoBehaviour {
-
+	public static CameraContainer instance = null;
 	/// <summary>
 	///camera limit in world size,factor to control how much distance camera can move to,
 	///x in horizontal
@@ -20,23 +20,37 @@ public class CameraContainer : MonoBehaviour {
 	//max drag potin in world
 	private Vector3 m_CSizeCamMoveMax;
 
+	//resolve drage conflict when 2 finger suddenly release one.
+	private float dragConflictCoolDown = 0.5f;
+	bool			m_bDragConflict = false;
+
+	public IEnumerator wait()
+	{
+		for (float t = 0; t < dragConflictCoolDown; t += Time.deltaTime)
+		{
+			yield return 0;
+		}
+		m_bDragConflict = false;
+	}
+
 	void Awake()
 	{
-		Main.getMainIns().SetCameraContainer(this);
+		instance = this;
 		ChooseCamera();
 	}
 
 	// Use this for initialization
 	void Start () {
+
 		ResetCame ();
 		//bottom vector are in x-z axis
 		//sizeMap.y is used as z axis value
-		Vector2 sizeMap = Main.getMainIns ().GetGround ().GetSize ();
+		Vector2 sizeMap = Ground.instance.GetSize ();
 
 		Vector3 offset = new Vector3 (sizeMap.x * DragFactor.x, 0, sizeMap.y * DragFactor.y);
 	
-		m_CSizeCamMoveMin = GlobalDef.CameraContainerOriginPos - offset * 0.5f;
-		m_CSizeCamMoveMax = GlobalDef.CameraContainerOriginPos + offset * 0.5f;
+		m_CSizeCamMoveMin = Ground.instance.transform.position - offset * 0.5f;
+		m_CSizeCamMoveMax = Ground.instance.transform.position + offset * 0.5f;
 		//m_CSizeCamMove = new Vector2(GlobalDef.CameraContainerOriginPos.x + 0.5f * sizeMap.x, );
 	}
 	
@@ -45,23 +59,37 @@ public class CameraContainer : MonoBehaviour {
 	
 	}
 
+	private void ResovleDragConflict ()
+	{
+		m_bDragConflict = true;
+		StartCoroutine (wait());
+	}
+
+	public void OnFingerUp(ref FingerUpEvent eventData)
+	{
+		
+	}
+
 	public void OnTap(ref TapGesture e)
 	{
-		if (e.Selection)
-		{
-			DebugConsole.Log ("touch obje    " + e.Selection);
-			if (e.Selection) {
-				UnitBase b = e.Selection.GetComponent<UnitBase> ();
-				if (b != null) {
-					b.onTouch (ref e);
-				}
+		if (e.Selection) {
+			UnitBase b = e.Selection.GetComponent<UnitBase> ();
+			if (b ==null) {
+				b = e.Selection.GetComponentInParent<UnitBase> ();
+			}
+			if (b ==null) {
+				b = e.Selection.GetComponentInChildren<UnitBase> ();
+			}
+
+			if (b != null) {
+				b.onTouch (ref e);
 			}
 		}
 	}
 
 	public void OnDrag(ref DragGesture e)
 	{
-		if (e.DeltaMove == Vector2.zero)
+		if (e.DeltaMove == Vector2.zero || m_bDragConflict)
 			return;
 
 		//drag in z axi at vertical,so set y value to z
@@ -76,16 +104,27 @@ public class CameraContainer : MonoBehaviour {
 		vForward.y = 0;
 
 		//if (e.DeltaMove.magnitude > GlobalDef.MaxCameraDragDistance) {
-			transform.position -= vRight* v.x * GlobalDef.MaxCameraDragDistance * GlobalDef.CameraDragFactor;
-			transform.position -= vForward * v.z * GlobalDef.MaxCameraDragDistance * GlobalDef.CameraDragFactor;
+		Vector3 Vx = vRight* v.x * GlobalDef.MaxCameraDragDistance * GlobalDef.CameraDragFactor;
+		Vector3 Vy = vForward * v.z * GlobalDef.MaxCameraDragDistance * GlobalDef.CameraDragFactor;
 //		} else {
 //			transform.position -= vRight * v.x * GlobalDef.CameraDragFactor;
 //			transform.position -= vForward * v.z * GlobalDef.CameraDragFactor;
 //		}
+		//change drag speed when came zoom
+		if (m_bCamTypeOrthographic) {
+			float factor = m_CCurrentCam.orthographicSize / GlobalDef.MaxOrtCameraOriginSize;
+			Vx *= factor;
+			Vy *= factor;
+		} else {
+			float factor = m_CCurrentCam.fieldOfView / GlobalDef.MaxPersCameraFov;
+			Vx *= factor;
+			Vy *= factor;
+		}
+
+		transform.position -= Vx;
+		transform.position -= Vy;
 
 		Vector3 checkV = transform.position;
-
-
 
 		//check limit range in min x
 		if (checkV.x < m_CSizeCamMoveMin.x) {
@@ -123,8 +162,6 @@ public class CameraContainer : MonoBehaviour {
 		
 		}
 
-//		string forms = string.Format ("moved position.x  {0} moved .y   {1}  ",transform.position.x, transform.position.z);
-//		DebugConsole.Log (forms, "error");
 	}
 
 	public void OnDrag2(ref DragGesture e)
@@ -162,6 +199,12 @@ public class CameraContainer : MonoBehaviour {
 		} else {
 
 		}
+
+		if (e.Phase == ContinuousGesturePhase.Ended)
+		{
+			//reslove drag conflict
+			ResovleDragConflict();
+		}
 	}
 
 	public void OnTwist(ref TwistGesture e)
@@ -177,6 +220,12 @@ public class CameraContainer : MonoBehaviour {
 		//			Quaternion rotation = Quaternion.LookRotation(relativePos);
 		//			this.transform.rotation = Quaternion.Slerp(this.transform.rotation, rotation, e.DeltaRotation * GlobalDef.CameraRotateFactor);
 		//transform.rotation = rotation;
+
+		if (e.Phase == ContinuousGesturePhase.Ended)
+		{
+			//reslove drag conflict
+			ResovleDragConflict();
+		}
 	}
 
 	public void OnPinch(ref PinchGesture e)
@@ -196,6 +245,12 @@ public class CameraContainer : MonoBehaviour {
 				m_CCurrentCam.fieldOfView = GlobalDef.MaxPersCameraFov;
 			if (m_CCurrentCam.fieldOfView < GlobalDef.MinPersCameraFov)
 				m_CCurrentCam.fieldOfView = GlobalDef.MinPersCameraFov;
+		}
+
+		if (e.Phase == ContinuousGesturePhase.Ended)
+		{
+			//reslove drag conflict
+			ResovleDragConflict();
 		}
 	}
 

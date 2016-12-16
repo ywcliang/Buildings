@@ -48,6 +48,7 @@
      <Compile Include="Assets\ActionStrategy Kit\Scripts\Gameplay\Editor\ControllerEditor.cs" />
      <Compile Include="Assets\ActionStrategy Kit\Scripts\Gameplay\Editor\EnemyEditor.cs" />
      <Compile Include="Assets\ActionStrategy Kit\Scripts\Gameplay\Editor\SettingActionEditor.cs" />
+     <None Include="Assets\Buildings\_Shaders\CB_Unlit_Texture_Color_HalfLambert.shader" />
      <None Include="Assets\ActionStrategy Kit\Standard Assets\Toon Shading\Sources\Shaders\Toony-Basic.shader" />
      <None Include="Assets\ActionStrategy Kit\Model\Model Character\Player\Knight\keyframe.txt" />
      <None Include="Assets\Plugins\FingerGestures\Readme.txt" />
@@ -57,6 +58,7 @@
      <None Include="Assets\ActionStrategy Kit\Standard Assets\Toon Shading\Sources\Shaders\Toony-LightedOutline.shader" />
      <None Include="Assets\ActionStrategy Kit\Standard Assets\Toon Shading\Sources\Shaders\Toony-Lighted.shader" />
      <None Include="Assets\ActionStrategy Kit\Model\Model Character\Enemy\keyframe.txt" />
+     <None Include="Assets\Buildings\_Shaders\CB_Unlit_Reflective.shader" />
      <None Include="Assets\ActionStrategy Kit\Model\Model Character\Player\Priest\keyframe.txt" />
  <Reference Include="UnityEditor.Advertisements">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/Advertisements/Editor/UnityEditor.Advertisements.dll</HintPath>

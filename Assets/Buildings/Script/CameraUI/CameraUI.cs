@@ -15,12 +15,12 @@ public class CameraUI : MonoBehaviour {
 
 	public void OnRestCameraClick()
 	{
-		Main.getMainIns ().ResetCamera ();
+		Main.Instance.ResetCamera ();
 	}
 
 
 	public void OnExitClick()
 	{
-		Main.getMainIns ().ExitGame ();
+		Main.Instance.ExitGame ();
 	}
 }

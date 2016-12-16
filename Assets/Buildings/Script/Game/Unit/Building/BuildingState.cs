@@ -2,7 +2,7 @@
 using Unit;
 using UnityEngine;
 
-namespace Building
+namespace Buildings
 {
 	public class PreBuild : UnitState
 	{
@@ -28,7 +28,7 @@ namespace Building
 
 		override public void update()
 		{
-			
+			base.update ();
 		}
 	}
 
@@ -56,6 +56,7 @@ namespace Building
 		override public void update()
 		{
 			//if state work is done then do something
+			base.update ();
 		}
 	}
 		
@@ -82,6 +83,7 @@ namespace Building
 		override public void update()
 		{
 			//produce coin or something
+			base.update ();
 		}
 	}
 
@@ -106,7 +108,7 @@ namespace Building
 
 		override public void update()
 		{
-
+			base.update ();
 		}
 	}
 	
@@ -173,46 +175,60 @@ namespace Building
 
 
 		//push delegates
-		public virtual void pushPreCallback(int stateIndex, UnitState.StateCallback call)
+		public virtual void pushPreCallback(int stateIndex, UnitState.StatePreCallback call)
 		{
 			if (m_States [stateIndex] != null) {
-				m_States [stateIndex].onPreStateCall += call;
+				m_States [stateIndex].OnPreStateCall += call;
 			}
 		}
 
-		public virtual void pushChangingCallback(int stateIndex, UnitState.StateCallback call)
+		public virtual void pushChangingCallback(int stateIndex, UnitState.StateChangingCallback call)
 		{
 			if (m_States [stateIndex] != null) {
-				m_States [stateIndex].ChangeingStateCall += call;
+				m_States [stateIndex].ChangingStateCall += call;
 			}
 		}
 
-		public virtual void pushBeenChangedCallback(int stateIndex, UnitState.StateCallback call)
+		public virtual void pushBeenChangedCallback(int stateIndex, UnitState.StateBeenChangedCallback call)
 		{
 			if (m_States [stateIndex] != null) {
 				m_States [stateIndex].BeenChangedStateCall += call;
 			}
 		}
 
+		public virtual void pushUpdateCallback(int stateIndex, UnitState.StateUpdateCallback call)
+		{
+			if (m_States [stateIndex] != null) {
+				m_States [stateIndex].UpdateCall += call;
+			}
+		}
+
 		//pop delegates
-		public virtual void popPreCallback(int stateIndex, UnitState.StateCallback call)
+		public virtual void popPreCallback(int stateIndex, UnitState.StatePreCallback call)
 		{
 			if (m_States [stateIndex] != null) {
-				m_States [stateIndex].onPreStateCall -= call;
+				m_States [stateIndex].OnPreStateCall -= call;
 			}
 		}
 
-		public virtual void popChangingCallback(int stateIndex, UnitState.StateCallback call)
+		public virtual void popChangingCallback(int stateIndex, UnitState.StateChangingCallback call)
 		{
 			if (m_States [stateIndex] != null) {
-				m_States [stateIndex].ChangeingStateCall -= call;
+				m_States [stateIndex].ChangingStateCall -= call;
 			}
 		}
 
-		public virtual void popBeenChangedCallback(int stateIndex, UnitState.StateCallback call)
+		public virtual void popBeenChangedCallback(int stateIndex, UnitState.StateBeenChangedCallback call)
 		{
 			if (m_States [stateIndex] != null) {
 				m_States [stateIndex].BeenChangedStateCall -= call;
+			}
+		}
+
+		public virtual void popUpdateCallback(int stateIndex, UnitState.StateUpdateCallback call)
+		{
+			if (m_States [stateIndex] != null) {
+				m_States [stateIndex].UpdateCall -= call;
 			}
 		}
 	}

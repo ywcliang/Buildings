@@ -52,7 +52,7 @@ public class GCamera : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		m_CCamContainer = Main.getMainIns ().GetCameraContainer ();
+		m_CCamContainer = CameraContainer.instance;
 		//init touch filter.
 		FingerGestures.GlobalTouchFilter = TouchFilter;
 	}
@@ -117,6 +117,7 @@ public class GCamera : MonoBehaviour {
 		//only receive first touch, others are ignore
 		if (eventData.Finger.Index == 0) {
 			m_bTouchFocus = false;
+			m_CCamContainer.OnFingerUp (ref eventData);
 		}
 	}
 
@@ -175,7 +176,7 @@ public class GCamera : MonoBehaviour {
 	//check is there any item filter our touch.
 	public bool TouchFilter( int fingerIndex, Vector2 position )
 	{
-		Camera c = Main.getMainIns ().getMainCam ();
+		Camera c = CameraContainer.instance.getMainCamera ();
 		if (c) {
 //			int uiMask = LayerMask.GetMask ("UI");
 //			Ray ray = c.ScreenPointToRay( position );

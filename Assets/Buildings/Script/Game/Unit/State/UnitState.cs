@@ -4,11 +4,15 @@ namespace Unit
 {
 	public class UnitState
 	{
-		public delegate void StateCallback();
+		public delegate void StatePreCallback();
+		public delegate void StateChangingCallback();
+		public delegate void StateBeenChangedCallback();
+		public delegate void StateUpdateCallback();
 
-		public event StateCallback onPreStateCall;
-		public event StateCallback ChangeingStateCall;
-		public event StateCallback BeenChangedStateCall;
+		public event StatePreCallback OnPreStateCall;
+		public event StateChangingCallback ChangingStateCall;
+		public event StateBeenChangedCallback BeenChangedStateCall;
+		public event StateUpdateCallback UpdateCall;
 
 		public UnitState ()
 		{
@@ -17,21 +21,22 @@ namespace Unit
 
 		~UnitState()
 		{
-			onPreStateCall = null;
-			ChangeingStateCall = null;
+			OnPreStateCall = null;
+			ChangingStateCall = null;
 			BeenChangedStateCall = null;
+			UpdateCall = null;
 		}
 
 		virtual public void onPreChangeState()
 		{
-			if (onPreStateCall != null)
-				onPreStateCall.Invoke ();
+			if (OnPreStateCall != null)
+				OnPreStateCall.Invoke ();
 		}
 
 		virtual public void onStateChanging()
 		{
-			if (ChangeingStateCall != null)
-				ChangeingStateCall.Invoke ();
+			if (ChangingStateCall != null)
+				ChangingStateCall.Invoke ();
 		}
 
 		virtual public void onStateBeenChanged()
@@ -42,7 +47,8 @@ namespace Unit
 
 		virtual public void update()
 		{
-			
+			if (UpdateCall != null)
+				UpdateCall.Invoke ();
 		}
 	}
 }
