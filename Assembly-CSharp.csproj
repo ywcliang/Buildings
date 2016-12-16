@@ -45,27 +45,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\ActionStrategy Kit\Effect\Prefebs\DestroyForTime.cs" />
-     <Compile Include="Assets\ActionStrategy Kit\Scripts\Gameplay\EnemyController\ActionEventSlime.cs" />
-     <Compile Include="Assets\ActionStrategy Kit\Scripts\Gameplay\EnemyController\ActionEventSlimeBoss.cs" />
-     <Compile Include="Assets\ActionStrategy Kit\Scripts\Gameplay\EnemyController\AreaChecker.cs" />
-     <Compile Include="Assets\ActionStrategy Kit\Scripts\Gameplay\EnemyController\Enemy.cs" />
-     <Compile Include="Assets\ActionStrategy Kit\Scripts\Gameplay\EnemyManager\EnemyManager.cs" />
-     <Compile Include="Assets\ActionStrategy Kit\Scripts\Gameplay\FloatingText\TextDamage.cs" />
-     <Compile Include="Assets\ActionStrategy Kit\Scripts\Gameplay\Game Controller\GameManager.cs" />
-     <Compile Include="Assets\ActionStrategy Kit\Scripts\Gameplay\PlayerController\Controller.cs" />
-     <Compile Include="Assets\ActionStrategy Kit\Scripts\Gameplay\PlayerController\GetAllPlayer.cs" />
-     <Compile Include="Assets\ActionStrategy Kit\Scripts\Gameplay\PlayerController\Healer\ActionEventHealer.cs" />
-     <Compile Include="Assets\ActionStrategy Kit\Scripts\Gameplay\PlayerController\Magic\ActionEventRange.cs" />
-     <Compile Include="Assets\ActionStrategy Kit\Scripts\Gameplay\PlayerController\Magic\Spell_Bullet.cs" />
-     <Compile Include="Assets\ActionStrategy Kit\Scripts\Gameplay\PlayerController\Sword\ActionEventMelee.cs" />
-     <Compile Include="Assets\ActionStrategy Kit\Scripts\Gameplay\SettingAction\SettingAction.cs" />
-     <Compile Include="Assets\ActionStrategy Kit\Scripts\Gameplay\TouchController\TouchController.cs" />
-     <Compile Include="Assets\ActionStrategy Kit\Scripts\Gameplay\UI_Manager\GUI_Setting.cs" />
-     <Compile Include="Assets\ActionStrategy Kit\Scripts\Gameplay\UI_Manager\SizeGUI.cs" />
-     <Compile Include="Assets\ActionStrategy Kit\Scripts\Gameplay\UI_Manager\UI_Manager.cs" />
-     <Compile Include="Assets\ActionStrategy Kit\Scripts\Title\AlphaText.cs" />
-     <Compile Include="Assets\ActionStrategy Kit\Scripts\Title\ControlScene.cs" />
      <Compile Include="Assets\BuildBehaviour.cs" />
      <Compile Include="Assets\Buildings\Script\C#EventHandlerList\EventHandlerList.cs" />
      <Compile Include="Assets\Buildings\Script\CameraContainer\CameraContainer.cs" />
@@ -90,17 +69,10 @@
      <Compile Include="Assets\Buildings\Script\Tool\MeshSquare.cs" />
      <Compile Include="Assets\Scripts\Camera\TouchCamera.cs" />
      <None Include="Assets\Buildings\_Shaders\CB_Unlit_Texture_Color_HalfLambert.shader" />
-     <None Include="Assets\ActionStrategy Kit\Standard Assets\Toon Shading\Sources\Shaders\Toony-Basic.shader" />
-     <None Include="Assets\ActionStrategy Kit\Model\Model Character\Player\Knight\keyframe.txt" />
      <None Include="Assets\Plugins\FingerGestures\Readme.txt" />
      <None Include="Assets\Buildings\_Shaders\CB_VertexLitDirOnly_LightMap.shader" />
-     <None Include="Assets\ActionStrategy Kit\Standard Assets\Toon Shading\Sources\Shaders\Toony-BasicOutline.shader" />
      <None Include="Assets\Buildings\_Models\Knight\keyframe.txt" />
-     <None Include="Assets\ActionStrategy Kit\Standard Assets\Toon Shading\Sources\Shaders\Toony-LightedOutline.shader" />
-     <None Include="Assets\ActionStrategy Kit\Standard Assets\Toon Shading\Sources\Shaders\Toony-Lighted.shader" />
-     <None Include="Assets\ActionStrategy Kit\Model\Model Character\Enemy\keyframe.txt" />
      <None Include="Assets\Buildings\_Shaders\CB_Unlit_Reflective.shader" />
-     <None Include="Assets\ActionStrategy Kit\Model\Model Character\Player\Priest\keyframe.txt" />
  <Reference Include="UnityEngine.UI">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
