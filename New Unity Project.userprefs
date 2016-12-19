@@ -1,34 +1,30 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Buildings/Script/Game/Unit/Building/Building.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Buildings/Script/Game/Unit/UnitBase.cs">
     <Files>
-      <File FileName="Assets/Buildings/Script/Game/Animator/BuildAnimator.cs" Line="18" Column="2" />
-      <File FileName="Assets/Buildings/Script/Game/Unit/Building/Building.cs" Line="315" Column="1" />
-      <File FileName="Assets/Buildings/Script/Game/Unit/Building/BuildingTownHall.cs" Line="1" Column="1" />
-      <File FileName="Assets/Buildings/Script/Game/Unit/UnitBase.cs" Line="1" Column="1" />
-      <File FileName="Assets/Buildings/Script/Game/Unit/Building/BuildingManager.cs" Line="1" Column="1" />
-      <File FileName="Assets/Buildings/Script/Game/Unit/UnitManager.cs" Line="1" Column="1" />
-      <File FileName="Assets/Buildings/Script/Game/Unit/Building/BuildingBase.cs" Line="1" Column="1" />
-      <File FileName="Assets/Buildings/Script/Game/Unit/Building/BuildingC2.cs" Line="1" Column="1" />
-      <File FileName="Assets/Buildings/Script/Game/Unit/Building/BuildingD2.cs" Line="1" Column="1" />
-      <File FileName="Assets/Buildings/Script/Game/Unit/Building/BuildingState.cs" Line="168" Column="1" />
+      <File FileName="Assets/Buildings/Script/Game/Animator/BuildAnimator.cs" Line="72" Column="3" />
+      <File FileName="Assets/Buildings/Script/Game/Unit/Building/Building.cs" Line="20" Column="22" />
+      <File FileName="Assets/Buildings/Script/Game/Unit/Building/BuildingTownHall.cs" Line="13" Column="34" />
+      <File FileName="Assets/Buildings/Script/Game/Unit/UnitBase.cs" Line="392" Column="57" />
+      <File FileName="Assets/Buildings/Script/Game/Unit/Building/BuildingManager.cs" Line="80" Column="6" />
+      <File FileName="Assets/Buildings/Script/Game/Unit/UnitManager.cs" Line="36" Column="28" />
+      <File FileName="Assets/Buildings/Script/Game/Unit/Building/BuildingBase.cs" Line="23" Column="43" />
+      <File FileName="Assets/Buildings/Script/Game/Unit/Building/BuildingC2.cs" Line="15" Column="39" />
+      <File FileName="Assets/Buildings/Script/Game/Unit/Building/BuildingD2.cs" Line="14" Column="39" />
+      <File FileName="Assets/Buildings/Script/Game/Unit/Building/BuildingState.cs" Line="173" Column="1" />
       <File FileName="Assets/Buildings/Script/Game/Unit/State/UnitState.cs" Line="1" Column="1" />
-      <File FileName="Assets/Buildings/Script/CameraContainer/CameraContainer.cs" Line="1" Column="1" />
+      <File FileName="Assets/Buildings/Script/CameraContainer/CameraContainer.cs" Line="75" Column="21" />
       <File FileName="Assets/Buildings/Script/Def/Global.cs" Line="1" Column="1" />
       <File FileName="Assets/Buildings/Script/Main/Main.cs" Line="1" Column="1" />
       <File FileName="Assets/Buildings/Script/Main/Ground.cs" Line="1" Column="1" />
       <File FileName="Assets/Buildings/Script/GestureDelegate/GCamera.cs" Line="1" Column="1" />
-      <File FileName="Assets/BuildBehaviour.cs" Line="22" Column="13" />
+      <File FileName="Assets/BuildBehaviour.cs" Line="27" Column="31" />
+      <File FileName="Assets/Buildings/Script/Game/UI/MainUILayer.cs" Line="23" Column="14" />
+      <File FileName="Assets/Buildings/Script/Game/Interface/UnitBehaviour.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore>
-      <Breakpoint file="/Users/ywc/workflow/unity_Project/New Unity Project/Assets/Buildings/Script/Game/Unit/Building/Building.cs" line="226" column="1" />
-      <Breakpoint file="/Users/ywc/workflow/unity_Project/New Unity Project/Assets/Buildings/Script/Game/Unit/Building/BuildingState.cs" line="164" column="1" />
-      <Breakpoint file="/Users/ywc/workflow/unity_Project/New Unity Project/Assets/Buildings/Script/Game/Unit/Building/Building.cs" line="315" column="1" />
-      <Breakpoint file="/Users/ywc/workflow/unity_Project/New Unity Project/Assets/Buildings/Script/Game/Unit/Building/Building.cs" line="334" column="1" />
-      <Breakpoint file="/Users/ywc/workflow/unity_Project/New Unity Project/Assets/BuildBehaviour.cs" line="23" column="15" />
-    </BreakpointStore>
+    <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
 </Properties>

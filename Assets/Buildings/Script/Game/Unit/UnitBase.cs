@@ -478,7 +478,7 @@ public struct CoinBundle
 
 			} else {
 				if (m_ECoinProduceType == CoinProduceType.TOUCH) {
-					m_CProducedCoin = m_CProduceRate;
+					m_CProducedCoin = m_CProduceRate * s_UnitBase_Coin_level_Factor[(int)m_ECurrentLevel];
 					s_TotalCoin = s_TotalCoin + m_CProduceRate;
 				}
 			}

@@ -12,7 +12,7 @@ namespace Buildings
 			m_CModel = null;
 			m_CProduceRate = s_ProduceRate [0];
 			m_ECoinProduceType = CoinProduceType.TOUCH;
-			m_ECurrentLevel = UnitLevel.LEVEL_FIRST;
+			m_ECurrentLevel = UnitLevel.LEVEL_ZERO;
 		}
 
 		public override void onTouch (ref TapGesture e)
